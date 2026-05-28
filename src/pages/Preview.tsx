@@ -38,10 +38,9 @@ function Preview() {
     if (data === "error")
         return <div className="error">Failed to load</div>;
 
-    const club = data?.knowledge_graph;
+    
     const matches = data?.sports_results?.games || [];
     const standings = data?.sports_results?.league?.standings || [];
-    const videos = data?.video_results || data?.inline_videos || []
     const stories = data?.top_stories || [];
     console.log(data.inline_videos);
     console.log(data.video_results);
