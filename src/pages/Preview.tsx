@@ -8,7 +8,7 @@ source: string;
 }
 
 interface SerpApiResponse {
-images_results: ImageResult[];
+    images_results: ImageResult[];
 }
 
 function Preview() {
@@ -45,16 +45,15 @@ function Preview() {
 // }, []);
 
     useEffect(() => {
-    const queryString = new URLSearchParams(params).toString();
-
+    const queryString = new URLSearchParams(params).toString()
     fetch(`/api/search?${queryString}`)
         .then((res) => res.json())
         .then((result: SerpApiResponse) => {
-            console.log(result);
-            setData(result);
+            console.log(result)
+            setData(result)
         })
-        .catch((err) => console.error("Error:", err));
-}, []);
+        .catch((err) => console.error("Error:", err))
+}, [])
 
 
     
