@@ -44,20 +44,18 @@ function Preview() {
 //         .catch(() => setData("error"));
 // }, []);
 
-    const queryString = new URLSearchParams(params).toString()
-    fetch('/api/search?${queryString}')
-.then((res) => res.json())
-.then((result: SerpApiResponse) => {
-console.log(result)
-setData(result)
-})
-.catch((err) => console.error("Error:", err))
-}, [])
+    useEffect(() => {
+    const queryString = new URLSearchParams(params).toString();
 
-    if (!data) return <div className="loading">Loading...</div>;
+    fetch(`/api/search?${queryString}`)
+        .then((res) => res.json())
+        .then((result: SerpApiResponse) => {
+            console.log(result);
+            setData(result);
+        })
+        .catch((err) => console.error("Error:", err));
+}, []);
 
-    if (data === "error")
-        return <div className="error">Failed to load</div>;
 
     
     const matches = data?.sports_results?.games || [];
