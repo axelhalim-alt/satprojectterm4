@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 
+interface ImageResult {
+title: string;
+original: string;
+source: string;
+}
+
+interface SerpApiResponse {
+images_results: ImageResult[];
+}
+
 function Preview() {
-    const [data, setData] = useState<any>(null);
+    // const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<SerpApiResponse | null>(null);
 
-    const API_KEY =
-        "15b3ae66d9e6b1e538748f8295c118cae95ef67ee8c785729a7ef7ee21e44787";
+    // const API_KEY =
+    //     "15b3ae66d9e6b1e538748f8295c118cae95ef67ee8c785729a7ef7ee21e44787";
 
-    const ENDPOINT = "https://serpapi.com/search";
+    // const ENDPOINT = "https://serpapi.com/search";
 
     const params = {
         engine: "google",
@@ -16,22 +27,32 @@ function Preview() {
         gl: "id",
     };
 
-    useEffect(() => {
-    const queryString = new URLSearchParams({
-        ...params,
-        api_key: API_KEY,
-    }).toString();
+    // useEffect(() => {
+    // const queryString = new URLSearchParams({
+    //     ...params,
+    //     api_key: API_KEY,
+    // }).toString();
 
-    const url = `${ENDPOINT}?${queryString}`;
+    // const url = `${ENDPOINT}?${queryString}`;
 
-    fetch("https://corsproxy.io/?" + encodeURIComponent(url))
-        .then((res) => res.json())
-        .then((result) => {
-            console.log(result);
-            setData(result);
-        })
-        .catch(() => setData("error"));
-}, []);
+//     fetch("https://corsproxy.io/?" + encodeURIComponent(url))
+//         .then((res) => res.json())
+//         .then((result) => {
+//             console.log(result);
+//             setData(result);
+//         })
+//         .catch(() => setData("error"));
+// }, []);
+
+    const queryString = new URLSearchParams(params).toString()
+    fetch('/api/search?${queryString}')
+.then((res) => res.json())
+.then((result: SerpApiResponse) => {
+console.log(result)
+setData(result)
+})
+.catch((err) => console.error("Error:", err))
+}, [])
 
     if (!data) return <div className="loading">Loading...</div>;
 
