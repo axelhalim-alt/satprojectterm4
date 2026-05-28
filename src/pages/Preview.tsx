@@ -9,6 +9,10 @@ source: string;
 
 interface SerpApiResponse {
     images_results: ImageResult[];
+    sports_results?: any;
+    top_stories?: any[];
+    inline_videos?: any[];
+    video_results?: any[];
 }
 
 function Preview() {
@@ -60,8 +64,8 @@ function Preview() {
     const matches = data?.sports_results?.games || [];
     const standings = data?.sports_results?.league?.standings || [];
     const stories = data?.top_stories || [];
-    console.log(data.inline_videos);
-    console.log(data.video_results);
+    console.log(data?.inline_videos);
+    console.log(data?.video_results);
     return (
         
         <div className="container">
